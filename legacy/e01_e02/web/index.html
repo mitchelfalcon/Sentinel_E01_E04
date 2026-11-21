@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEA Latido — Laboratorio E02</title>
+<style>
+:root{color-scheme:light;font-family:-apple-system,BlinkMacSystemFont,system-ui,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#f6f2fa;color:#252038;padding:18px}
+main{max-width:600px;margin:20px auto}.card{background:white;border:1px solid #e9dff2;border-radius:22px;padding:22px;box-shadow:0 8px 25px #3d245812}
+h1{font-size:1.65rem;margin:4px 0}.muted{color:#685a78}label{font-size:.95rem;font-weight:650;display:block;margin:15px 0 5px}
+select,input,button{font:inherit;width:100%;padding:12px;border-radius:11px;border:1px solid #cebedf;background:#fff}
+button{background:#66419b;color:white;border:0;font-weight:700;margin-top:17px}button:disabled{opacity:.45}
+.secondary{background:#e9e0f2;color:#503575}small{line-height:1.45;display:block}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:18px 0}
+.stat{background:#faf7fc;border:1px solid #eee5f5;padding:10px;border-radius:13px}.stat strong{display:block;font-size:1.3rem}
+#log{max-height:215px;overflow:auto;white-space:pre-wrap;word-break:break-all;background:#201a2d;color:#e9defb;padding:12px;border-radius:12px;font-size:12px}
+.warning{border-left:3px solid #b3894c;padding-left:10px;font-size:.88rem}
+</style></head><body><main><div class="card">
+<div class="muted">UVM · Fase II · E02</div><h1>◇ GEA Latido</h1>
+<p class="muted">Simulación de alerta móvil en una red Wi-Fi local, incluso sin internet.</p>
+<p class="warning"><strong>Solo laboratorio:</strong> envía datos ficticios, sin micrófono, ubicación ni llamadas de emergencia. La comunicación HTTP no está cifrada.</p>
+<label for="scenario">Escenario de prueba</label>
+<select id="scenario"><option value="hot">HOT — Wi-Fi con salida a internet</option><option value="cold">COLD — Wi-Fi sin salida a internet</option><option value="repeater">B — Steren repetidor</option><option value="mesh">C — Mesh verificada</option><option value="local">Local</option></select>
+<label for="bits">Longitud del mensaje</label>
+<select id="bits"><option value="168">168 bits · 21 bytes</option><option value="336">336 bits · 42 bytes</option><option value="672">672 bits · 84 bytes</option><option value="1344">1,344 bits · 168 bytes</option><option value="8192">8,192 bits · 1,024 bytes</option><option value="32768">32,768 bits · 4,096 bytes</option></select>
+<label for="repeats">Repeticiones (por lote)</label><input id="repeats" type="number" min="1" max="100" value="10">
+<button id="send" onclick="sendBatch()">Enviar mensajes de prueba</button>
+<button class="secondary" onclick="downloadCsv()">Guardar CSV de tiempos del iPhone</button>
+<div class="stats"><div class="stat"><small>Intentos</small><strong id="total">0</strong></div><div class="stat"><small>Entregados</small><strong id="ok">0</strong></div><div class="stat"><small>Éxito</small><strong id="pct">—</strong></div><div class="stat"><small>RTT promedio</small><strong id="rtt">—</strong></div></div>
+<label>Registro</label><pre id="log" role="status" aria-live="polite">Preparada para transmitir en red local.</pre>
+<small class="muted">RTT = tiempo ida y vuelta HTTP observado en Safari. La carga binaria tiene la longitud seleccionada; el tráfico Wi-Fi total incluye cabeceras y retransmisiones.</small>
+</div></main><script>
+let seq = 1, rows = [];
+function makePacket(bits, number) {
+  const data = new Uint8Array(bits / 8);
+  const view = new DataView(data.buffer);
+  data[0] = 1; data[1] = 2;
+  view.setUint32(2, 424242, false); // ID ficticio
+  view.setUint32(6, number >>> 0, false);
+  view.setUint32(10, Math.floor(Date.now()/1000)>>>0, false);
+  data[14] = 0; // flags
+  // Los bytes 15-20 son un marcador de posición, NO un MAC criptográfico
+  for (let i=21;i<data.length;i++) data[i] = i % 251;
+  return data;
+}
+function log(line){const pre=document.getElementById('log');pre.textContent=line+'\n'+pre.textContent;}
+function update(){const ok=rows.filter(r=>r.ok).length, total=rows.length;
+ document.getElementById('total').textContent=total;
+ document.getElementById('ok').textContent=ok;
+ document.getElementById('pct').textContent=total?(100*ok/total).toFixed(1)+'%':'—';
+ const good=rows.filter(r=>r.ok);document.getElementById('rtt').textContent=good.length?(good.reduce((s,r)=>s+r.rtt_ms,0)/good.length).toFixed(1)+' ms':'—';
+}
+async function sendBatch(){
+ const btn=document.getElementById('send');btn.disabled=true;
+ const scenario=document.getElementById('scenario').value;
+ const bits=Number(document.getElementById('bits').value);
+ const n=Math.max(1,Math.min(100,Number(document.getElementById('repeats').value)||1));
+ for(let i=0;i<n;i++){
+  const number=seq++;const pkt=makePacket(bits,number);const t0=performance.now();let ok=false,err='';
+  try {const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),6000);
+   try{const res=await fetch('/api/alert?scenario='+encodeURIComponent(scenario),
+    {method:'POST',headers:{'Content-Type':'application/octet-stream'},body:pkt,signal:ctrl.signal,cache:'no-store'});
+    const ack=await res.json();ok=Boolean(res.ok&&ack.ok&&ack.sequence===number&&ack.bits===bits);
+    if(!ok)err=ack.error||'ACK no coincide';
+   }finally{clearTimeout(timer);}
+  }catch(e){err=String(e.message||e);}
+  const rtt_ms=Number((performance.now()-t0).toFixed(2));
+  rows.push({date:new Date().toISOString(),scenario,bits,sequence:number,ok,rtt_ms,error:err});
+  log(`${ok?'✓':'✕'} seq=${number} ${bits} bits RTT=${rtt_ms} ms${err?' '+err:''}`);
+  update();
+ }
+ btn.disabled=false;
+}
+function downloadCsv(){
+ const columns=['date','scenario','bits','sequence','ok','rtt_ms','error'];
+ const lines=[columns.join(','),...rows.map(r=>columns.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(','))];
+ const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='gea_iphone_rtt.csv';
+ a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+</script></body></html>

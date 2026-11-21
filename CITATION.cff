@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "Si utilizas el software o sus datos, cita este repositorio y especifica la version."
+title: "SENTINEL: programa experimental E01-E04 de alertas compactas y redes comunitarias"
+authors:
+  - family-names: "Falcon Triana"
+    given-names: "Nailea Mitchel"
+date-released: 2026-11-20
+version: "1.0.0"
+license: MIT
+keywords:
+  - redes-mesh
+  - sistemas-offline
+  - investigacion-reproducible

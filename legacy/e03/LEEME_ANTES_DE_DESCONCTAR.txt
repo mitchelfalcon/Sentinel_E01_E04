@@ -1,0 +1,49 @@
+GEA LATIDO E03 v2 — GUIA RAPIDA PARA EJECUCION SIN INTERNET
+===============================================================
+Equipo A: iPhone 17 (Safari). Equipo B: SEGUNDA LAPTOP (relay TCP 8081).
+Equipo C: Kali Linux (sink TCP 8080). Todos conectados al MISMO Steren
+COM-852 en modo ROUTER, SIN CONEXION WAN NI ENLACE WISP AL INFINITUM.
+Kali se conecta por cable Ethernet a LAN Steren. B y iPhone por Wi-Fi Steren.
+
+ANTES DE DESCONECTAR:
+1. Guardar capturas de la configuracion previa del Steren.
+2. Descargar este ZIP en Kali y B, o copiar code/ a B por USB.
+3. Comprobar Python 3.10+ en Kali y B. En iPhone no se instala nada.
+4. Leer GUIA_E03_DETALLADA.md. Registrar IP originales y la regla UFW actual.
+
+IPS: CONSULTAR LAS REALES, las siguientes son ejemplos NO MEDICIONES:
+C (Kali) 192.168.0.100; B (Laptop) 192.168.0.101; A (iPhone) 192.168.0.102
+
+KALI:
+cd ~/proyectos/GEA_Latido/GEA_E03_V2_Offline
+python3 -m venv .venv
+source .venv/bin/activate
+python code/selftest_e03_v2.py
+ip -4 -br addr show eth0
+sudo ufw status numbered
+# Si UFW esta activo y B tiene IP 192.168.0.101, regla exacta:
+sudo ufw allow in on eth0 from 192.168.0.101 to any port 8080 proto tcp
+python -u code/gea_node.py --role sink --node C --host 192.168.0.100 --port 8080 --log data/e03_C.csv
+
+LAPTOP B (LINUX):
+python3 code/gea_node.py --role relay --node B --host 192.168.0.101 --port 8081 --next http://192.168.0.100:8080 --log data/e03_B.csv
+LAPTOP B (WINDOWS, carpeta descargada):
+py -3 code\gea_node.py --role relay --node B --host 192.168.0.101 --port 8081 --next http://192.168.0.100:8080 --log data\e03_B.csv
+
+IPHONE SAFARI: http://192.168.0.101:8081/
+Alias LUNA, 168 bits, 10 intentos; repetir los 6 tamanos y exportar CSV.
+Ruta esperada B > C, un relay de aplicacion FISICO, no un salto RF mesh.
+
+AL TERMINAR:
+- Ctrl+C en servidor B y en C; guardar CSV Safari, B y C.
+- Kali eliminar la regla temporal creada (misma IP y puerto que se anadio):
+sudo ufw delete allow in on eth0 from 192.168.0.101 to any port 8080 proto tcp
+- En B cerrar cualquier regla temporal del firewall para 8081.
+- Kali: regresar cable amarillo al LAN Infinitum y ejecutar:
+sudo nmcli device disconnect eth0
+sudo nmcli device connect eth0
+ip -4 -br addr show eth0
+- Restaurar modo y configuracion anterior del Steren segun respaldo fotografico.
+- No usar RESET de fabrica sin respaldos y acceso a su configuracion previa.
+
+No contiene cifrado, autenticacion ni datos de emergencia. Solo ensayo.

@@ -1,0 +1,1 @@
+run_id,radio_model,firmware,frequency_mhz,node,sequence,status,hop,peer,rssi_dbm,snr_db,utc,mono_ms,route,packet_sha256,los,distance_m
