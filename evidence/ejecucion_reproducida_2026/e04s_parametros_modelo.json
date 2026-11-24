@@ -1,0 +1,29 @@
+{
+  "procedencia": "SIMULACION_PARAMETRICA_NO_RF",
+  "seed": 20261123,
+  "n_por_punto": 200,
+  "distancias_km": [
+    0.1,
+    0.5,
+    1.0,
+    2.5,
+    5.0
+  ],
+  "probabilidades_asumidas": {
+    "LOS": [
+      0.995,
+      0.99,
+      0.98,
+      0.94,
+      0.82
+    ],
+    "NLOS": [
+      0.98,
+      0.94,
+      0.83,
+      0.56,
+      0.3
+    ]
+  },
+  "descripcion": "Barrido de sensibilidad matematico: probabilidades elegidas como hipotesis, no estimadas de campo."
+}

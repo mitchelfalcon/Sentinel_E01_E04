@@ -1,0 +1,26 @@
+{
+  "directa": {
+    "procedencia": "MEDIDO_HTTP_LOCALHOST_REPETICION",
+    "n": 60,
+    "confirmados": 60,
+    "pdr_pct": 100.0,
+    "p50_ms": 0.614,
+    "p95_ms": 0.883,
+    "ic95_wilson_pct": [
+      93.98,
+      100.0
+    ]
+  },
+  "dos_relays": {
+    "procedencia": "MEDIDO_HTTP_LOCALHOST_REPETICION",
+    "n": 60,
+    "confirmados": 60,
+    "pdr_pct": 100.0,
+    "p50_ms": 1.683,
+    "p95_ms": 2.265,
+    "ic95_wilson_pct": [
+      93.98,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+test_deterministic_sensitivity (test_distance_model.TestDistance.test_deterministic_sensitivity) ... ok
+test_e04_reference (test_distance_model.TestDistance.test_e04_reference) ... ok
+test_budget_balances (test_finances.TestFinances.test_budget_balances) ... ok
+test_e04_is_deterministic (test_suite.TestSuite.test_e04_is_deterministic) ... ok
+test_four_states (test_suite.TestSuite.test_four_states) ... ok
+test_reference_csv (test_suite.TestSuite.test_reference_csv) ... ok
+test_rf_empty_template (test_suite.TestSuite.test_rf_empty_template) ... ok
+test_routing_fails_over (test_suite.TestSuite.test_routing_fails_over) ... ok
+test_wilson_50_of_50 (test_suite.TestSuite.test_wilson_50_of_50) ... ok
+test_crc_detects_change (test_uart_mesh.TestUART.test_crc_detects_change) ... ok
+test_frame_size_and_payload (test_uart_mesh.TestUART.test_frame_size_and_payload) ... ok
+test_payload_crc (test_uart_mesh.TestUART.test_payload_crc) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.007s
+
+OK
+test_bad_packet_rejected (test_lab.TestGEALab.test_bad_packet_rejected) ... ok
+test_client_rtt (test_lab.TestGEALab.test_client_rtt) ... RECIBIDO 2026-11-24T04:23:27.735+00:00 scenario='hot' seq=123 bytes=42 bits=336
+ok
+test_health (test_lab.TestGEALab.test_health) ... ok
+test_payload_sizes (test_lab.TestGEALab.test_payload_sizes) ... ok
+test_post_and_csv (test_lab.TestGEALab.test_post_and_csv) ... RECIBIDO 2026-11-24T04:23:27.739+00:00 scenario='cold' seq=992 bytes=21 bits=168
+ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.517s
+
+OK
+OK E03v2: 6 longitudes, alias LUNA en 21 bytes, 2 relays logicos, SHA256 igual, CRC32 corrupcion rechazada. 0 saltos RF probados.
+{
+  "directa": {
+    "procedencia": "MEDIDO_HTTP_LOCALHOST_REPETICION",
+    "n": 60,
+    "confirmados": 60,
+    "pdr_pct": 100.0,
+    "p50_ms": 0.614,
+    "p95_ms": 0.883,
+    "ic95_wilson_pct": [
+      93.98,
+      100.0
+    ]
+  },
+  "dos_relays": {
+    "procedencia": "MEDIDO_HTTP_LOCALHOST_REPETICION",
+    "n": 60,
+    "confirmados": 60,
+    "pdr_pct": 100.0,
+    "p50_ms": 1.683,
+    "p95_ms": 2.265,
+    "ic95_wilson_pct": [
+      93.98,
+      100.0
+    ]
+  }
+}
+{
+  "provenance": "SIMULADO_NO_RF",
+  "seed": 42,
+  "total": 100,
+  "delivered": 97,
+  "pdr_pct": 97.0,
+  "p50_ms": 44.964,
+  "p95_ms": 67.484,
+  "after_failure": 48,
+  "after_failure_attempts": 50,
+  "routes": [
+    "A>B>C",
+    "A>D>C"
+  ],
+  "note": "Las perdidas/latencias son sintéticas; no representan PDR real de LoRa"
+}
+Figuras SVG: 8
+SUITE FINALIZADA. Resultados en runs/ y figuras en figures/

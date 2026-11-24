@@ -1,0 +1,16 @@
+{
+  "provenance": "SIMULADO_NO_RF",
+  "seed": 42,
+  "total": 100,
+  "delivered": 97,
+  "pdr_pct": 97.0,
+  "p50_ms": 44.964,
+  "p95_ms": 67.484,
+  "after_failure": 48,
+  "after_failure_attempts": 50,
+  "routes": [
+    "A>B>C",
+    "A>D>C"
+  ],
+  "note": "Las perdidas/latencias son sintéticas; no representan PDR real de LoRa"
+}

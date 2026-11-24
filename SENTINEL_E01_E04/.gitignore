@@ -1,0 +1,19 @@
+# Entorno local y datos de campo
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+runs/
+!runs/.gitkeep
+*.pcap
+*.pcapng
+*.key
+*.pem
+.env
+secrets/
+private/
+raw_audio/
+raw_video/
+raw_images/
+**/data/gea_recepciones.csv

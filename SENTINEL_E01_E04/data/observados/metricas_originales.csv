@@ -1,0 +1,10 @@
+ensayo,bits,n_envios,n_ack,entrega_pct,rtt_media_ms,rtt_mediana_ms,rtt_p95_ms,rtt_min_ms,rtt_max_ms,validacion
+E01_LOOPBACK,168,10,10,100.0,2.498,1.135,14.4,0.99,14.4,local_en_kali
+E01_LOOPBACK,336,10,10,100.0,1.125,1.055,1.98,0.86,1.98,local_en_kali
+E01_LOOPBACK,672,10,10,100.0,1.384,1.17,2.82,0.89,2.82,local_en_kali
+E01_LOOPBACK,1344,10,10,100.0,0.999,0.985,1.32,0.77,1.32,local_en_kali
+E01_LOOPBACK,8192,10,10,100.0,1.293,0.975,2.54,0.74,2.54,local_en_kali
+E02_HOT_FINAL,168,20,20,100.0,29.45,17.0,38.0,13.0,211.0,LAN_iPhone_Safari_Kali_captura
+E02_HOT_FINAL,1344,10,10,100.0,41.0,37.5,68.0,30.0,68.0,LAN_iPhone_Safari_Kali_captura
+E02_HOT_FINAL,8192,10,10,100.0,31.7,31.0,45.0,26.0,45.0,LAN_iPhone_Safari_Kali_captura
+E02_HOT_FINAL,32768,10,10,100.0,20.3,17.0,43.0,14.0,43.0,LAN_iPhone_Safari_Kali_captura

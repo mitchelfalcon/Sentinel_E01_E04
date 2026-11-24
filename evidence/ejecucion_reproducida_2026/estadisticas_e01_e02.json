@@ -1,0 +1,157 @@
+{
+  "method": "percentil interpolado de posiciones (n-1)*p/100",
+  "e01": {
+    "n": 50,
+    "ack": 50,
+    "pdr_pct": 100.0,
+    "p50_ms": 1.05,
+    "p95_ms": 2.504,
+    "mean_ms": 1.46,
+    "max_ms": 14.4,
+    "wilson95_pct": [
+      92.87,
+      100
+    ]
+  },
+  "e02_hot": {
+    "n": 50,
+    "ack": 50,
+    "pdr_pct": 100.0,
+    "p50_ms": 26.0,
+    "p95_ms": 48.2,
+    "mean_ms": 30.38,
+    "max_ms": 211.0,
+    "wilson95_pct": [
+      92.87,
+      100
+    ]
+  },
+  "by_bits": {
+    "e01": {
+      "168": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 1.135,
+        "p95_ms": 8.595,
+        "mean_ms": 2.498,
+        "max_ms": 14.4,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "336": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 1.055,
+        "p95_ms": 1.638,
+        "mean_ms": 1.125,
+        "max_ms": 1.98,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "672": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 1.17,
+        "p95_ms": 2.658,
+        "mean_ms": 1.384,
+        "max_ms": 2.82,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "1344": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 0.985,
+        "p95_ms": 1.284,
+        "mean_ms": 0.999,
+        "max_ms": 1.32,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "8192": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 0.975,
+        "p95_ms": 2.315,
+        "mean_ms": 1.293,
+        "max_ms": 2.54,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      }
+    },
+    "e02_hot": {
+      "168": {
+        "n": 20,
+        "ack": 20,
+        "pdr_pct": 100.0,
+        "p50_ms": 17.0,
+        "p95_ms": 46.65,
+        "mean_ms": 29.45,
+        "max_ms": 211.0,
+        "wilson95_pct": [
+          83.89,
+          100
+        ]
+      },
+      "1344": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 37.5,
+        "p95_ms": 59.9,
+        "mean_ms": 41.0,
+        "max_ms": 68.0,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "8192": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 31.0,
+        "p95_ms": 39.6,
+        "mean_ms": 31.7,
+        "max_ms": 45.0,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      },
+      "32768": {
+        "n": 10,
+        "ack": 10,
+        "pdr_pct": 100.0,
+        "p50_ms": 17.0,
+        "p95_ms": 34.45,
+        "mean_ms": 20.3,
+        "max_ms": 43.0,
+        "wilson95_pct": [
+          72.25,
+          100.0
+        ]
+      }
+    }
+  },
+  "notes": [
+    "E01 es loopback en Kali. E02 es RTT HTTP Safari - Kali sobre LAN HOT. No se midió Sub-GHz.",
+    "Los 180 registros de Safari incluyen etiquetas de escenario, no prueban aislamiento WAN.",
+    "Los intervalos de confianza deben considerar el tamaño de muestra y método de selección."
+  ]
+}

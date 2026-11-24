@@ -1,0 +1,18 @@
+﻿clasificacion,concepto,cantidad,costo_unitario_MXN,subtotal_MXN,fuente
+CAPEX,Portátil de referencia,5,1900,9500,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Relevador exterior autónomo,3,4250,12750,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Pasarela comunitaria,1,4650,4650,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Instrumentación de ensayo,1,3000,3000,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Ingeniería no recurrente (firmware/PCB/QA),1,34000,34000,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Instalación de 3 relés,3,650,1950,"supuesto de presupuesto de ingeniería 2026, no cotización"
+CAPEX,Instalación de pasarela,1,950,950,"supuesto de presupuesto de ingeniería 2026, no cotización"
+OPEX_mensual,Mantenimiento e inspección de relevadores,3,180,540,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Gestión estación / revisiones software,1,200,200,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Reserva de energía/recarga,1,150,150,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Datos externos opcionales de pasarela,1,350,350,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Fondo baterías de portátiles,5,40,200,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Traslados / visitas de campo,1,600,600,"supuesto de presupuesto de operación 2026, no cotización"
+OPEX_mensual,Respaldo y archivado local,1,100,100,"supuesto de presupuesto de operación 2026, no cotización"
+TOTAL_CAPEX,,1,66800,66800,modelo
+TOTAL_OPEX_MENSUAL,,1,2140,2140,modelo
+TCO_36_MESES,,1,143840,143840,modelo
